@@ -13,7 +13,7 @@ const JOB = Object.freeze({
 
 const JOB_MAX = Math.max.apply(Math, Object.keys(JOB).map(k => JOB[k] )) + 1;
 
-const JOB_GROUP = Object.freeze({
+let JOB_GROUP = {
     TANK : BinaryArray.deserialize({
         FIGHTER : 1,
         MONK : 1,
@@ -31,7 +31,7 @@ const JOB_GROUP = Object.freeze({
         SUMMONER : 1,
         KNIGHT : 1,
     }, JOB, JOB_MAX),
-})
+}
 
 let job_id = JOB.FIGHTER;
 if( JOB_GROUP.TANK.check([job_id],[]) ){
