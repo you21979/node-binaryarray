@@ -79,23 +79,23 @@ const JOB = Object.freeze({
 const JOB_MAX = Math.max.apply(Math, Object.keys(JOB).map(k => JOB[k] )) + 1;
 
 let JOB_GROUP = {
-    TANK : BinaryArray.deserialize({
-        FIGHTER : 1,
-        MONK : 1,
-        KNIGHT : 1,
-    }, JOB, JOB_MAX),
-    CASTER : BinaryArray.deserialize({
-        MAGE : 1,
-        PRIEST : 1,
-        SUMMONER : 1,
-    }, JOB, JOB_MAX),
-    HEALER : BinaryArray.deserialize({
-        PRIEST : 1,
-    }, JOB, JOB_MAX),
-    EXJOB : BinaryArray.deserialize({
-        SUMMONER : 1,
-        KNIGHT : 1,
-    }, JOB, JOB_MAX),
+    TANK : BinaryArray.deserialize([
+        'FIGHTER',
+        'MONK',
+        'KNIGHT'
+    ], JOB, JOB_MAX),
+    CASTER : BinaryArray.deserialize([
+        'MAGE',
+        'PRIEST',
+        'SUMMONER'
+    ], JOB, JOB_MAX),
+    HEALER : BinaryArray.deserialize([
+        'PRIEST'
+    ], JOB, JOB_MAX),
+    EXJOB : BinaryArray.deserialize([
+        'SUMMONER',
+        'KNIGHT'
+    ], JOB, JOB_MAX),
 }
 
 let job_id = JOB.FIGHTER;
