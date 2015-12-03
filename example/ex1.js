@@ -10,7 +10,7 @@ var EVENT_CLEAR = {
     QUEST6 : 6,
     LASTBOSS : 7,
 }
-var EVENT_CLEAR_MAX = Math.max.apply(Math, Object.keys(EVENT_CLEAR).map(function(k){ return EVENT_CLEAR[k] })) + 1;
+var EVENT_CLEAR_MAX = Object.keys(EVENT_CLEAR).reduce(function(r, k){ return Math.max(EVENT_CLEAR[k], r) }, 0) + 1;
 
 var ba = new BinaryArray(EVENT_CLEAR_MAX)
 

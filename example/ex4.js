@@ -1,5 +1,5 @@
 "use strict"
-const BinaryArray = require("binaryarray")
+const BinaryArray = require('..')
 
 const JOB = Object.freeze({
     NONE : 0,
@@ -11,31 +11,32 @@ const JOB = Object.freeze({
     SUMMONER : 6,
 });
 
-const JOB_MAX = Math.max.apply(Math, Object.keys(JOB).map(k => JOB[k] )) + 1;
+const JOB_MAX = Object.keys(JOB).reduce((r, k) => Math.max(r, JOB[k]), 0) + 1;
 
 let JOB_GROUP = {
-    TANK : BinaryArray.deserialize({
-        FIGHTER : 1,
-        MONK : 1,
-        KNIGHT : 1,
-    }, JOB, JOB_MAX),
-    CASTER : BinaryArray.deserialize({
-        MAGE : 1,
-        PRIEST : 1,
-        SUMMONER : 1,
-    }, JOB, JOB_MAX),
-    HEALER : BinaryArray.deserialize({
-        PRIEST : 1,
-    }, JOB, JOB_MAX),
-    EXJOB : BinaryArray.deserialize({
-        SUMMONER : 1,
-        KNIGHT : 1,
-    }, JOB, JOB_MAX),
+    TANK : BinaryArray.deserialize([
+        'FIGHTER',
+        'MONK',
+        'KNIGHT'
+    ], JOB, JOB_MAX),
+    CASTER : BinaryArray.deserialize([
+        'MAGE',
+        'PRIEST',
+        'SUMMONER'
+    ], JOB, JOB_MAX),
+    HEALER : BinaryArray.deserialize([
+        'PRIEST'
+    ], JOB, JOB_MAX),
+    EXJOB : BinaryArray.deserialize([
+        'SUMMONER',
+        'KNIGHT'
+    ], JOB, JOB_MAX),
 }
 
 let job_id = JOB.FIGHTER;
-if( JOB_GROUP.TANK.check([job_id],[]) ){
+if( JOB_GROUP.TANK.indexOf(job_id) ){
     console.log("tank job")
 }else{
     console.log("not tank job")
 }
+
