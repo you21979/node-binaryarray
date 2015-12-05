@@ -166,6 +166,38 @@ describe('test', function() {
             assert(JSON.stringify(input) === JSON.stringify(output));
         }].forEach(function(f){f()})
     });
+    describe('if json test', function() {
+        [
+        function(){
+            var input = [1,0,1,0,1,0,1];
+            var ba = BinaryArray.loadFromArray(input);
+            var json = ba.toJSON()
+            assert(json === JSON.stringify(input));
+        }].forEach(function(f){f()})
+    });
+    describe('other test', function() {
+        [
+        function(){
+            var ba = new BinaryArray(1024);
+            [0,1,2,3,4,5,10].forEach(function(v){ ba.bitOn(v) });
+            assert(ba.check([0,1,2,3,4,5]))
+            assert(!ba.check([0,1,2,3,4,5], [10]))
+            assert(ba.check([0,1,2,3,4,5],[7,8,9]))
+        },
+        function(){
+            var ba = new BinaryArray(1024);
+            ba.bitOn(3);
+            var obj = ba.rangeOf([0,1,2,3,4,5]);
+            assert(!obj[0]);
+            assert(obj[3]);
+        },
+        function(){
+            var ba = new BinaryArray(1024);
+            assert(ba.isRange(1023));
+            assert(!ba.isRange(1024));
+            assert(!ba.isRange(-1));
+        }].forEach(function(f){f()})
+    });
 });
 
 
