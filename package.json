@@ -1,6 +1,6 @@
 {
   "name": "binaryarray",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "the binary array",
   "main": "index.js",
   "scripts": {
