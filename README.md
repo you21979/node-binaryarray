@@ -1,5 +1,9 @@
 # binaryarray
 
+[![NPM](https://nodei.co/npm/binaryarray.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/binaryarray)  
+[![Build Status](https://secure.travis-ci.org/you21979/node-binaryarray.png?branch=master)](https://travis-ci.org/you21979/node-binaryarray)
+[![Coverage Status](https://coveralls.io/repos/you21979/node-binaryarray/badge.png)](https://coveralls.io/r/you21979/node-binaryarray)
+
 ## install
 
 ```
