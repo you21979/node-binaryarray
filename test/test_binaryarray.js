@@ -166,8 +166,36 @@ describe('test', function() {
             assert(JSON.stringify(input) === JSON.stringify(output));
         }].forEach(function(f){f()})
     });
-    describe('if json test', function() {
+    describe('if other test', function() {
         [
+        function(){
+            var input = [
+                1,1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,1
+            ];
+            var ba = BinaryArray.loadFromArray(input);
+            assert(ba.toHexString() === 'FFFFFFFF');
+        },
+        function(){
+            var input = [
+                1,0,0,0,0,0,0,0,
+                0,1,0,0,0,0,0,0,
+                0,0,1,0,0,0,0,0,
+                0,0,0,1,0,0,0,0,
+                0,0,0,0,1,0,0,0,
+                0,0,0,0,0,1,0,0,
+                0,0,0,0,0,0,1,0,
+                0,0,0,0,0,0
+            ];
+            var ba = BinaryArray.loadFromArray(input);
+            assert(ba.toHexString() === '0040201008040201');
+        },
+        function(){
+            var ba = BinaryArray.loadFromHexString(32, 'FFFFFFFF');
+            assert(ba.toHexString() === 'FFFFFFFF');
+        },
         function(){
             var input = [1,0,1,0,1,0,1];
             var ba = BinaryArray.loadFromArray(input);
@@ -190,6 +218,20 @@ describe('test', function() {
             var obj = ba.rangeOf([0,1,2,3,4,5]);
             assert(!obj[0]);
             assert(obj[3]);
+        },
+        function(){
+            var ba = new BinaryArray(1024);
+            ba.bitOn(3);
+            var obj = ba.rangeOf(3);
+            assert(obj[3]);
+        },
+        function(){
+            var ba = new BinaryArray(1024);
+            ba.bitOn(3);
+            try{
+                var obj = ba.rangeOf("AAA");
+            }catch(e){
+            }
         },
         function(){
             var ba = new BinaryArray(1024);
