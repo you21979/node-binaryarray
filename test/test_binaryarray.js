@@ -45,15 +45,15 @@ describe('test', function() {
             var ba = new BinaryArray(32);
             ba.bitOn(0);
             assert(ba.storage[0] === 0x00000001);
-            assert(ba.indexOf(0) === 1);
+            assert(ba.at(0) === 1);
         },
         function(){
             var ba = new BinaryArray(32);
             ba.bitOn(0);
             ba.bitOn(1);
             assert(ba.storage[0] === 0x00000003);
-            assert(ba.indexOf(0) === 1);
-            assert(ba.indexOf(1) === 1);
+            assert(ba.at(0) === 1);
+            assert(ba.at(1) === 1);
         },
         function(){
             var ba = new BinaryArray(32);
@@ -61,23 +61,23 @@ describe('test', function() {
             ba.bitOn(1);
             ba.bitOn(2);
             assert(ba.storage[0] === 0x00000007);
-            assert(ba.indexOf(0) === 1);
-            assert(ba.indexOf(1) === 1);
-            assert(ba.indexOf(2) === 1);
+            assert(ba.at(0) === 1);
+            assert(ba.at(1) === 1);
+            assert(ba.at(2) === 1);
         },
         function(){
             var ba = new BinaryArray(32);
             ba.bitOn(31);
             assert(ba.storage[0] === 0x80000000);
-            assert(ba.indexOf(31) === 1);
+            assert(ba.at(31) === 1);
         },
         function(){
             var ba = new BinaryArray(33);
             ba.bitOn(32);
             assert(ba.storage[0] === 0x00000000);
             assert(ba.storage[1] === 0x00000001);
-            assert(ba.indexOf(31) === 0);
-            assert(ba.indexOf(32) === 1);
+            assert(ba.at(31) === 0);
+            assert(ba.at(32) === 1);
         },
         function(){
             var ba = new BinaryArray(32);
@@ -94,17 +94,17 @@ describe('test', function() {
             ba.storage[0] = 0xffffffff;
             ba.bitOff(0);
             assert(ba.storage[0] === 0xfffffffe);
-            assert(ba.indexOf(0) === 0);
-            assert(ba.indexOf(1) === 1);
+            assert(ba.at(0) === 0);
+            assert(ba.at(1) === 1);
         },
         function(){
             var ba = new BinaryArray(32);
             ba.storage[0] = 0xffffffff;
             ba.bitOff(31);
             assert(ba.storage[0] === 0x7fffffff);
-            assert(ba.indexOf(0) === 1);
-            assert(ba.indexOf(30) === 1);
-            assert(ba.indexOf(31) === 0);
+            assert(ba.at(0) === 1);
+            assert(ba.at(30) === 1);
+            assert(ba.at(31) === 0);
         },
         function(){
             var ba = new BinaryArray(64);
@@ -113,9 +113,9 @@ describe('test', function() {
             ba.bitOff(32);
             assert(ba.storage[0] === 0xffffffff);
             assert(ba.storage[1] === 0xfffffffe);
-            assert(ba.indexOf(31) === 1);
-            assert(ba.indexOf(32) === 0);
-            assert(ba.indexOf(33) === 1);
+            assert(ba.at(31) === 1);
+            assert(ba.at(32) === 0);
+            assert(ba.at(33) === 1);
         },
         function(){
             var ba = new BinaryArray(32);

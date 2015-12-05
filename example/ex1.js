@@ -30,5 +30,5 @@ console.log(ba.toHexString())
 console.log(ba2.toHexString())
 
 
-if(ba.indexOf(EVENT_CLEAR.QUEST4)) console.log("ok")
-if(!ba2.indexOf(EVENT_CLEAR.QUEST4)) console.log("ok")
+if(ba.at(EVENT_CLEAR.QUEST4)) console.log("ok")
+if(!ba2.at(EVENT_CLEAR.QUEST4)) console.log("ok")

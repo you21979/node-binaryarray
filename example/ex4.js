@@ -34,7 +34,7 @@ let JOB_GROUP = {
 }
 
 let job_id = JOB.FIGHTER;
-if( JOB_GROUP.TANK.indexOf(job_id) ){
+if( JOB_GROUP.TANK.at(job_id) ){
     console.log("tank job")
 }else{
     console.log("not tank job")
