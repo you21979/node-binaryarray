@@ -226,12 +226,15 @@ describe('test', function() {
             assert(obj[3]);
         },
         function(){
+            var flag = 1;
             var ba = new BinaryArray(1024);
             ba.bitOn(3);
             try{
                 var obj = ba.rangeOf("AAA");
             }catch(e){
+                flag = 0;
             }
+            assert(flag === 0);
         },
         function(){
             var ba = new BinaryArray(1024);
