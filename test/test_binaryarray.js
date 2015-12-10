@@ -2,7 +2,7 @@ var assert = require('power-assert');
 var BinaryArray = require('../');
 
 describe('test', function() {
-    describe('array length test', function() {
+    it('array length test', function() {
         [
         function(){
             var ba = new BinaryArray(0);
@@ -35,7 +35,7 @@ describe('test', function() {
             assert(ba.storage.length === 3);
         }].forEach(function(f){f()})
     });
-    describe('binary on test', function() {
+    it('binary on test', function() {
         [
         function(){
             var ba = new BinaryArray(32);
@@ -87,7 +87,7 @@ describe('test', function() {
             assert(ba.storage[0] === 0x00000001);
         }].forEach(function(f){f()})
     });
-    describe('binary off test', function() {
+    it('binary off test', function() {
         [
         function(){
             var ba = new BinaryArray(32);
@@ -126,7 +126,7 @@ describe('test', function() {
             assert(ba.storage[0] === 0xfffffffe);
         }].forEach(function(f){f()})
     });
-    describe('if array test', function() {
+    it('if array test', function() {
         [
         function(){
             var input = [1,1,1,1,1,1,1,1];
@@ -152,7 +152,7 @@ describe('test', function() {
             assert(JSON.stringify(input) === JSON.stringify(output));
         }].forEach(function(f){f()})
     });
-    describe('if serialize test', function() {
+    it('if serialize test', function() {
         [
         function(){
             var SPEC = {};
@@ -166,7 +166,7 @@ describe('test', function() {
             assert(JSON.stringify(input) === JSON.stringify(output));
         }].forEach(function(f){f()})
     });
-    describe('if other test', function() {
+    it('if other test', function() {
         [
         function(){
             var input = [
@@ -203,7 +203,7 @@ describe('test', function() {
             assert(json === JSON.stringify(input));
         }].forEach(function(f){f()})
     });
-    describe('other test', function() {
+    it('other test', function() {
         [
         function(){
             var ba = new BinaryArray(1024);
