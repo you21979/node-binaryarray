@@ -5,5 +5,7 @@ node_js:
   - "6"
   - "4"
 script: npm test --coverage
+before_install:
+  - npm run build
 after_success:
   - npm run coveralls

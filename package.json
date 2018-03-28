@@ -18,13 +18,14 @@
   ],
   "devDependencies": {
     "@types/node": "",
+    "typescript": "",
     "power-assert": "",
     "istanbul": "",
     "coveralls": "",
     "mocha": ""
   },
   "scripts": {
-    "build": "tsc -p ./",
+    "build": "./node_modules/.bin/tsc -p ./",
     "test": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
