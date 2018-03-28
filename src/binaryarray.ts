@@ -48,8 +48,8 @@ export class BinaryArray{
         assert(spec instanceof Object, 'spec is must be Object')
         const w = this.toArray();
         return Object.keys(spec)
-            .filter((k) => { return w[spec[k]] })
-            .map((k) => { return k })
+            .filter((k) => w[spec[k]])
+            .map((k) => k)
     }
     toJSON() : string{
         return JSON.stringify(this.toArray())
@@ -103,8 +103,8 @@ export class BinaryArray{
     }
     static loadFromArray(xs : Array<number>) : BinaryArray{
         const ba = new BinaryArray(xs.length);
-        xs.map((v, i) => { return [v, i] })
-            .filter((v) => { return v[0] })
+        xs.map((v, i) => [v, i])
+            .filter((v) => v[0])
             .forEach((v) => {
                 ba.bitOn(v[1]);
             })
