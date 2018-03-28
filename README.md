@@ -109,3 +109,42 @@ if( JOB_GROUP.TANK.at(job_id) ){
     console.log("not tank job")
 }
 ```
+
+* typescript
+
+```
+import BinaryArray = require('binaryarray')
+import {getSpecMax} from 'binaryarray/dist/lib/util';
+
+const EVENT_CLEAR = {
+    TUTORIAL : 0,
+    QUEST1 : 1,
+    QUEST2 : 2,
+    QUEST3 : 3,
+    QUEST4 : 4,
+    QUEST5 : 5,
+    QUEST6 : 6,
+    LASTBOSS : 7,
+}
+const EVENT_CLEAR_MAX = getSpecMax(EVENT_CLEAR);
+
+const ba = new BinaryArray(EVENT_CLEAR_MAX)
+
+ba.bitOn(EVENT_CLEAR.TUTORIAL);
+ba.bitOn(EVENT_CLEAR.QUEST1);
+ba.bitOn(EVENT_CLEAR.QUEST4);
+
+const save = ba.toArray();
+const ba2 = BinaryArray.loadFromArray(save);
+console.log(save);
+console.log(ba2.toArray());
+
+ba2.bitOn(2);
+ba2.bitOn(3);
+ba2.bitOff(4);
+console.log(ba.toHexString())
+console.log(ba2.toHexString())
+
+if(ba.at(EVENT_CLEAR.QUEST4)) console.log("ok")
+if(!ba2.at(EVENT_CLEAR.QUEST4)) console.log("ok")
+```
