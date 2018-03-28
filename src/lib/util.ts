@@ -1,30 +1,34 @@
-"use strict";
 
 // 配列一つに入るビットの数
-var BITS = 32;
+const BITS : number = 32;
 
 // フラグ数から配列のサイズを求める
-var getArraySize = exports.getArraySize = function(flagmax){
+export const getArraySize = (flagmax : number) : number => {
     return Math.ceil(flagmax/BITS);
-};
+}
+
 // フラグ番号から配列の位置を求める
-var getArrayIndex = exports.getArrayIndex = function(no){
+export const getArrayIndex = (no : number) : number => {
     return Math.floor(no/BITS);
-};
+}
+
 // フラグ番号から実際のフラグの位置を求める
-var getFlagPos = exports.getFlagPos = function(no){
+export const getFlagPos = (no : number) : number => {
     return no % BITS;
-};
-var digitfix = exports.digitfix = function(str, b){
+}
+
+
+export const digitfix = (str : string, b : number) : string => {
     if(str.length < b ){
-        var len = b - str.length;
-        for(var i = 0; i < len; ++i){
+        const len = b - str.length;
+        for(let i = 0; i < len; ++i){
             str = '0' + str;
         }
     }
     return str;
 };
-var hexconv = exports.hexconv = function(n){
+
+export const hexconv = (n : number) : string => {
     switch (n) {
         case 10: return 'A';
         case 11: return 'B';
@@ -35,10 +39,11 @@ var hexconv = exports.hexconv = function(n){
     }
     return n.toString();
 };
+
 // 数値からヘックスの文字列にする
-var NumberToHexString = exports.NumberToHexString = function(num, digit){
-    var remainder = 0;
-    var str = '';
+export const NumberToHexString = (num : number, digit : number) : string => {
+    let remainder = 0;
+    let str = '';
     while (num > 0) {
         remainder = num % 16;
         num = (num - remainder) / 16;
@@ -48,11 +53,16 @@ var NumberToHexString = exports.NumberToHexString = function(num, digit){
 }
 
 // 初期化済みの配列を作成する
-var createArray = exports.createArray = function(size, init_val){
-    init_val = init_val || 0;
-    var w = new Uint32Array(size);
-    for(var i = 0; i < size; ++i){
+export const createArray = (size : number, init_val : number = 0) : Uint32Array => {
+    const w = new Uint32Array(size);
+    for(let i = 0; i < size; ++i){
         w[i] = init_val;
     }
     return w;
 }
+
+export const getSpecMax = (spec : Object) : number => {
+    return Object.keys(spec).reduce((r, k) => Math.max(r, spec[k]), 0) + 1
+}
+
+
