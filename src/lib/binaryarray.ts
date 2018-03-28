@@ -1,9 +1,9 @@
-import assert = require('assert');
-import util = require('./util');
+import * as assert from 'assert';
+import * as util from './util';
 
 export class BinaryArray{
-    maxnum: number;
-    storage: Uint32Array;
+    readonly maxnum: number;
+    readonly storage: Uint32Array;
     constructor(maxnum : number){
         this.maxnum = maxnum
         this.storage = util.createArray(util.getArraySize(maxnum), 0)
@@ -37,7 +37,7 @@ export class BinaryArray{
         return this.storage[idx] & flag ? 1 : 0;
     }
     toArray() : Array<number>{
-        const w = [];
+        const w : Array<number> = [];
         const max = this.maxnum;
         for(let i = 0; i < max; ++i ){
             w.push(this.at(i));
@@ -49,7 +49,6 @@ export class BinaryArray{
         const w = this.toArray();
         return Object.keys(spec)
             .filter((k) => w[spec[k]])
-            .map((k) => k)
     }
     toJSON() : string{
         return JSON.stringify(this.toArray())
@@ -83,10 +82,13 @@ export class BinaryArray{
     toHexString() : string{
         let str = '';
         const n = this.storage.length;
-        for(let i=n-1;i>=0;--i){
+        for(let i = n - 1; i >= 0; --i){
             str = str + util.NumberToHexString(this.storage[i], 8);
         }
         return str;
+    }
+    clone() : BinaryArray{
+        return BinaryArray.loadFromArray(this.toArray());
     }
     static loadFromHexString(maxnum : number, str : string) : BinaryArray{
         const ba = new BinaryArray(maxnum);

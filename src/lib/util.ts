@@ -4,12 +4,12 @@ const BITS : number = 32;
 
 // フラグ数から配列のサイズを求める
 export const getArraySize = (flagmax : number) : number => {
-    return Math.ceil(flagmax/BITS);
+    return Math.ceil(flagmax / BITS);
 }
 
 // フラグ番号から配列の位置を求める
 export const getArrayIndex = (no : number) : number => {
-    return Math.floor(no/BITS);
+    return Math.floor(no / BITS);
 }
 
 // フラグ番号から実際のフラグの位置を求める

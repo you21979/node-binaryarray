@@ -66,21 +66,19 @@ if(!ba2.at(EVENT_CLEAR.QUEST4)) console.log("ok")
 
 ```
 import BinaryArray = require('binaryarray')
-import {getSpecMax} from 'binaryarray/dist/lib/util';
 
-const EVENT_CLEAR = {
-    TUTORIAL : 0,
-    QUEST1 : 1,
-    QUEST2 : 2,
-    QUEST3 : 3,
-    QUEST4 : 4,
-    QUEST5 : 5,
-    QUEST6 : 6,
-    LASTBOSS : 7,
+enum EVENT_CLEAR {
+    TUTORIAL,
+    QUEST1,
+    QUEST2,
+    QUEST3,
+    QUEST4,
+    QUEST5,
+    QUEST6,
+    LASTBOSS,
+    _SIZEOF
 }
-const EVENT_CLEAR_MAX = getSpecMax(EVENT_CLEAR);
-
-const ba = new BinaryArray(EVENT_CLEAR_MAX)
+const ba = new BinaryArray(EVENT_CLEAR._SIZEOF)
 
 ba.bitOn(EVENT_CLEAR.TUTORIAL);
 ba.bitOn(EVENT_CLEAR.QUEST1);

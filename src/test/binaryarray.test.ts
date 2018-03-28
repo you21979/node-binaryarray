@@ -1,5 +1,5 @@
-import assert = require('assert');
-import BinaryArray = require('..');
+import * as assert from 'assert'
+import {BinaryArray} from '../lib/binaryarray'
 import {getSpecMax} from "../lib/util"
 
 describe('test', () => {
@@ -237,6 +237,37 @@ describe('test', () => {
                 flag = 0;
             }
             assert(flag === 0);
+        },
+        ()=>{
+            const ba = new BinaryArray(1024);
+            ba.bitOn(3);
+            const ba2 = ba.clone()
+            assert(ba2.at(3))
+        },
+        ()=>{
+            enum EVENT_CLEAR {
+                TUTORIAL,
+                QUEST1,
+                QUEST2,
+                QUEST3,
+                QUEST4,
+                QUEST5,
+                QUEST6,
+                LASTBOSS,
+                _SIZEOF
+            }
+            const ba = new BinaryArray(EVENT_CLEAR._SIZEOF)
+            assert(ba.maxnum === EVENT_CLEAR._SIZEOF)
+            ba.bitOn(EVENT_CLEAR.TUTORIAL);
+            ba.bitOn(EVENT_CLEAR.QUEST1);
+            ba.bitOn(EVENT_CLEAR.QUEST4);
+            assert(ba.at(EVENT_CLEAR.TUTORIAL))
+            assert(ba.at(EVENT_CLEAR.QUEST1))
+            assert(ba.at(EVENT_CLEAR.QUEST4))
+            assert(!ba.at(EVENT_CLEAR.LASTBOSS))
+            const output = ba.serialize(EVENT_CLEAR);
+            const ba2 = BinaryArray.deserialize(output, EVENT_CLEAR, EVENT_CLEAR._SIZEOF)
+            assert(JSON.stringify(output) === JSON.stringify(ba2.serialize(EVENT_CLEAR)))
         },
         ()=>{
             const ba = new BinaryArray(1024);

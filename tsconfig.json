@@ -8,6 +8,7 @@
     "sourceMap": false,
     "removeComments": true,
     "moduleResolution": "node",
+    "strict": true,
     "declaration": true
   },
   "exclude": [
