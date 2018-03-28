@@ -1,5 +1,5 @@
 var assert = require('power-assert');
-var BinaryArray = require('../');
+var BinaryArray = require('..');
 
 describe('test', function() {
     it('array length test', function() {
