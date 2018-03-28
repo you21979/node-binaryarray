@@ -1,3 +1,3 @@
-import { BinaryArray } from './binaryarray'
+import { BinaryArray } from './lib/binaryarray'
 export = BinaryArray
 

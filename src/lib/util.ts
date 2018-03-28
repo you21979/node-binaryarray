@@ -60,3 +60,9 @@ export const createArray = (size : number, init_val : number = 0) : Uint32Array 
     }
     return w;
 }
+
+export const getSpecMax = (spec : Object) : number => {
+    return Object.keys(spec).reduce((r, k) => Math.max(r, spec[k]), 0) + 1
+}
+
+

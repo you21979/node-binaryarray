@@ -2,8 +2,8 @@ import assert = require('assert');
 import util = require('./util');
 
 export class BinaryArray{
-    private maxnum: number;
-    private storage: Uint32Array;
+    maxnum: number;
+    storage: Uint32Array;
     constructor(maxnum : number){
         this.maxnum = maxnum
         this.storage = util.createArray(util.getArraySize(maxnum), 0)
@@ -73,9 +73,9 @@ export class BinaryArray{
             return r;
         }, {})
     }
-    check(on_list : Object, off_list : Object) : boolean{
+    check(on_list : Array<number>, off_list : Array<number> = []) : boolean{
         const on = this.rangeOf(on_list);
-        const off = this.rangeOf(off_list || []);
+        const off = this.rangeOf(off_list);
         const x = Object.keys(on).reduce((r, v) => { return r & on[v] }, 1)
         const y = Object.keys(off).reduce((r, v) => { return r & ~off[v] }, 1)
         return (x & y) ? true : false
