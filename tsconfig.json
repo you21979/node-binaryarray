@@ -6,9 +6,10 @@
     "outDir": "./dist",
     "noImplicitAny": false,
     "sourceMap": false,
-    "removeComments": true,
+    "removeComments": false,
     "moduleResolution": "node",
     "strict": true,
+    "lib": ["es6"],
     "declaration": true
   },
   "exclude": [

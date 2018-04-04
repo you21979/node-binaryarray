@@ -1,6 +1,6 @@
 {
   "name": "binaryarray",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "the binary array",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

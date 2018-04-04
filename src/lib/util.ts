@@ -1,58 +1,52 @@
 
-// 配列一つに入るビットの数
+// Number of bit
 const BITS : number = 32;
 
-// フラグ数から配列のサイズを求める
+/**
+ * Calculate the array length from the number of flags
+ * @param flagmax max bits
+ * @returns array length
+ */
 export const getArraySize = (flagmax : number) : number => {
     return Math.ceil(flagmax / BITS);
 }
 
-// フラグ番号から配列の位置を求める
+/**
+ * Find the position of the array from the flag number
+ * @param no flag number
+ * @returns array index
+ */
 export const getArrayIndex = (no : number) : number => {
     return Math.floor(no / BITS);
 }
 
-// フラグ番号から実際のフラグの位置を求める
+/**
+ * Find the bit position from the flag number
+ * @param no flag number
+ * @returns bit index
+ */
 export const getFlagPos = (no : number) : number => {
     return no % BITS;
 }
 
-
-export const digitfix = (str : string, b : number) : string => {
-    if(str.length < b ){
-        const len = b - str.length;
-        for(let i = 0; i < len; ++i){
-            str = '0' + str;
-        }
-    }
-    return str;
-};
-
-export const hexconv = (n : number) : string => {
-    switch (n) {
-        case 10: return 'A';
-        case 11: return 'B';
-        case 12: return 'C';
-        case 13: return 'D';
-        case 14: return 'E';
-        case 15: return 'F';
-    }
-    return n.toString();
-};
-
-// 数値からヘックスの文字列にする
+/**
+ * Make it a number from hex string
+ * @param num
+ * @param digit
+ * @returns hexstring
+ */
 export const NumberToHexString = (num : number, digit : number) : string => {
-    let remainder = 0;
-    let str = '';
-    while (num > 0) {
-        remainder = num % 16;
-        num = (num - remainder) / 16;
-        str = hexconv(remainder) + str;
-    }
-    return digitfix(str, digit);
+    const template = Array.from(Array(digit), () => 0).join('')
+    const hexstring = num.toString(16).toUpperCase()
+    return (template + hexstring).slice(-digit)
 }
 
-// 初期化済みの配列を作成する
+/**
+ * Create an initialized typed-array
+ * @param size array length
+ * @param init_val initialize value
+ * @returns initialized typed-arrray
+ */
 export const createArray = (size : number, init_val : number = 0) : Uint32Array => {
     const w = new Uint32Array(size);
     for(let i = 0; i < size; ++i){
@@ -61,8 +55,12 @@ export const createArray = (size : number, init_val : number = 0) : Uint32Array 
     return w;
 }
 
+/**
+ * max value of object propaties
+ * @param spec enum-like Object
+ * @returns max value
+ */
 export const getSpecMax = (spec : Object) : number => {
     return Object.keys(spec).reduce((r, k) => Math.max(r, spec[k]), 0) + 1
 }
-
 
