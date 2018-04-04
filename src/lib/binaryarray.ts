@@ -37,12 +37,8 @@ export class BinaryArray{
         return this.storage[idx] & flag ? 1 : 0;
     }
     toArray() : Array<number>{
-        const w : Array<number> = [];
-        const max = this.maxnum;
-        for(let i = 0; i < max; ++i ){
-            w.push(this.at(i));
-        }
-        return w;
+        const results : Array<number> = Array.from( Array(this.maxnum), (v, idx) => this.at(idx))
+        return results
     }
     serialize(spec : Object) : Array<string>{
         assert(spec instanceof Object, 'spec is must be Object')
