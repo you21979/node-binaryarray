@@ -1,40 +1,37 @@
-import * as assert from 'assert';
-import * as util from './util';
+import * as assert from 'assert'
+import { numberToHexString, createArray, getSpecMax } from './util'
+import { getArraySize, getArrayIndex, getFlagPos } from './bitsize_util'
 
 export class BinaryArray{
-    readonly maxnum: number;
-    readonly storage: Uint32Array;
+    readonly maxnum: number
+    readonly storage: Uint32Array
     constructor(maxnum : number){
         this.maxnum = maxnum
-        this.storage = util.createArray(util.getArraySize(maxnum), 0)
+        this.storage = createArray(getArraySize(maxnum), 0)
+    }
+    private findBitPosition(no : number) : [number, number] {
+        assert(this.maxnum > no, 'on:over flagmax')
+        const idx = getArrayIndex(no)
+        assert(idx >= 0 && idx < this.storage.length, 'on:over idx range')
+        const pos = getFlagPos(no)
+        const flag = 1 << pos
+        return [idx, flag]
     }
     bitOn(no : number) : BinaryArray{
-        assert(this.maxnum > no, 'on:over flagmax');
-        const idx = util.getArrayIndex(no);
-        assert(idx >= 0 && idx < this.storage.length, 'on:over idx range');
-        const pos = util.getFlagPos(no);
-        const flag = 1 << pos;
-        this.storage[idx] |= flag;
-        return this;
+        const [idx, flag] = this.findBitPosition(no)
+        this.storage[idx] |= flag
+        return this
     }
     bitOff(no : number) : BinaryArray{
-        assert(this.maxnum > no, 'off:over flagmax');
-        const idx = util.getArrayIndex(no);
-        assert(idx >= 0 && idx < this.storage.length, 'off:over idx range');
-        const pos = util.getFlagPos(no);
-        const flag = 1 << pos;
+        const [idx, flag] = this.findBitPosition(no)
         if(this.storage[idx] & flag){
-            this.storage[idx] ^= flag;
+            this.storage[idx] ^= flag
         }
-        return this;
+        return this
     }
     at(no : number) : number{
-        assert(this.maxnum > no, 'get:over flagmax');
-        const idx = util.getArrayIndex(no);
-        assert(idx >= 0 && idx < this.storage.length, 'is:over idx range');
-        const pos = util.getFlagPos(no);
-        const flag = 1 << pos;
-        return this.storage[idx] & flag ? 1 : 0;
+        const [idx, flag] = this.findBitPosition(no)
+        return this.storage[idx] & flag ? 1 : 0
     }
     toArray() : Array<number>{
         const results : Array<number> = Array.from( Array(this.maxnum), (v, idx) => this.at(idx))
@@ -42,75 +39,73 @@ export class BinaryArray{
     }
     serialize(spec : Object) : Array<string>{
         assert(spec instanceof Object, 'spec is must be Object')
-        const w = this.toArray();
+        const flaglist = this.toArray()
         return Object.keys(spec)
-            .filter((k) => w[spec[k]])
+            .filter((k) => flaglist[spec[k]])
     }
     toJSON() : string{
         return JSON.stringify(this.toArray())
     }
     isRange(no : number) : boolean{
         if(!(this.maxnum > no)){
-                return false;
+                return false
         }
-        const idx = util.getArrayIndex(no);
+        const idx = getArrayIndex(no)
         if(!(idx >= 0 && idx < this.storage.length)){
-            return false;
+            return false
         }
-        return true;
+        return true
     }
-    rangeOf(xs :  any) : Object{
-        if(!(xs instanceof Array)){
-            xs = [xs];
-        }
-        return xs.reduce((r, v) => {
-            r[v] = this.at(v)
-            return r;
+    rangeOf(no_list : number | Array<number>) : Object{
+        const xs = (no_list instanceof Array) ? no_list : [no_list]
+        return xs.reduce((r : Object, no : number) => {
+            r[no] = this.at(no)
+            return r
         }, {})
     }
     check(on_list : Array<number>, off_list : Array<number> = []) : boolean{
-        const on = this.rangeOf(on_list);
-        const off = this.rangeOf(off_list);
+        const on = this.rangeOf(on_list)
+        const off = this.rangeOf(off_list)
         const x = Object.keys(on).reduce((r, v) => { return r & on[v] }, 1)
         const y = Object.keys(off).reduce((r, v) => { return r & ~off[v] }, 1)
         return (x & y) ? true : false
     }
     toHexString() : string{
-        let str = '';
-        const n = this.storage.length;
+        let str = ''
+        const n = this.storage.length
         for(let i = n - 1; i >= 0; --i){
-            str = str + util.NumberToHexString(this.storage[i], 8);
+            str = str + numberToHexString(this.storage[i], 8)
         }
-        return str;
+        return str
     }
     clone() : BinaryArray{
-        return BinaryArray.loadFromArray(this.toArray());
+        return BinaryArray.loadFromArray(this.toArray())
     }
     static loadFromHexString(maxnum : number, str : string) : BinaryArray{
-        const ba = new BinaryArray(maxnum);
-        const s = 8;
-        let b   = str.length - s;
-        let e   = str.length - 0;
-        const n = str.length / s;
+        const ba = new BinaryArray(maxnum)
+        const s = 8
+        let b   = str.length - s
+        let e   = str.length - 0
+        const n = str.length / s
         for(let i = 0; i < n; ++i){
-            ba.storage[i] = parseInt(str.substring(b,e), 16);
-            b -= s;
-            e -= s;
+            ba.storage[i] = parseInt(str.substring(b, e), 16)
+            b -= s
+            e -= s
         }
-        return ba;
+        return ba
     }
-    static loadFromArray(xs : Array<number>) : BinaryArray{
-        const ba = new BinaryArray(xs.length);
-        xs.map((v, i) => [v, i])
-            .filter((v) => v[0])
-            .forEach((v) => {
-                ba.bitOn(v[1]);
+    static loadFromArray(flaglist : Array<number>) : BinaryArray{
+        const ba = new BinaryArray(flaglist.length)
+        flaglist.map((v : number, i : number) => [i, v])
+            .filter((tuple) => tuple[1])
+            .forEach((tuple) => {
+                ba.bitOn(tuple[0])
             })
-        return ba;
+        return ba
     }
     static deserialize(list : Array<string>, spec : Object, max : number) : BinaryArray{
-        const ba = new BinaryArray(max);
+        const ba = new BinaryArray(max)
         list.forEach((v) => { ba.bitOn(spec[v]) })
-        return ba;
+        return ba
     }
 }

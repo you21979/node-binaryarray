@@ -1,41 +1,10 @@
-
-// Number of bit
-const BITS : number = 32;
-
-/**
- * Calculate the array length from the number of flags
- * @param flagmax max bits
- * @returns array length
- */
-export const getArraySize = (flagmax : number) : number => {
-    return Math.ceil(flagmax / BITS);
-}
-
-/**
- * Find the position of the array from the flag number
- * @param no flag number
- * @returns array index
- */
-export const getArrayIndex = (no : number) : number => {
-    return Math.floor(no / BITS);
-}
-
-/**
- * Find the bit position from the flag number
- * @param no flag number
- * @returns bit index
- */
-export const getFlagPos = (no : number) : number => {
-    return no % BITS;
-}
-
 /**
  * Make it a number from hex string
  * @param num
  * @param digit
  * @returns hexstring
  */
-export const NumberToHexString = (num : number, digit : number) : string => {
+export const numberToHexString = (num : number, digit : number) : string => {
     const template = Array.from(Array(digit), () => 0).join('')
     const hexstring = num.toString(16).toUpperCase()
     return (template + hexstring).slice(-digit)

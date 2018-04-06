@@ -227,6 +227,7 @@ describe('test', () => {
             const obj = ba.rangeOf(3);
             assert(obj[3]);
         },
+/* todo typescript type
         ()=>{
             let flag = 1;
             const ba = new BinaryArray(1024);
@@ -238,6 +239,7 @@ describe('test', () => {
             }
             assert(flag === 0);
         },
+*/
         ()=>{
             const ba = new BinaryArray(1024);
             ba.bitOn(3);
