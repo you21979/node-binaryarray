@@ -2,6 +2,8 @@ import * as assert from 'assert'
 import { numberToHexString, createArray, getSpecMax } from './util'
 import { getArraySize, getArrayIndex, getFlagPos } from './bitsize_util'
 
+type TupleFlag = [number, number]
+
 export class BinaryArray{
     readonly maxnum: number
     readonly storage: Uint32Array
@@ -9,7 +11,7 @@ export class BinaryArray{
         this.maxnum = maxnum
         this.storage = createArray(getArraySize(maxnum), 0)
     }
-    private findBitPosition(no : number) : [number, number] {
+    private findBitPosition(no : number) : TupleFlag {
         assert(this.maxnum > no, 'on:over flagmax')
         const idx = getArrayIndex(no)
         assert(idx >= 0 && idx < this.storage.length, 'on:over idx range')
@@ -96,7 +98,7 @@ export class BinaryArray{
     }
     static loadFromArray(flaglist : Array<number>) : BinaryArray{
         const ba = new BinaryArray(flaglist.length)
-        flaglist.map((v : number, i : number) => [i, v])
+        flaglist.map((v : number, i : number) : TupleFlag => [i, v])
             .filter((tuple) => tuple[1])
             .forEach((tuple) => {
                 ba.bitOn(tuple[0])

@@ -1,6 +1,7 @@
 import * as assert from 'assert'
 import {BinaryArray} from '../lib/binaryarray'
 import {getSpecMax} from "../lib/util"
+import {getBitSize} from "../lib/bitsize_util"
 
 describe('test', () => {
     it('array length test',() => {
@@ -245,6 +246,9 @@ describe('test', () => {
             ba.bitOn(3);
             const ba2 = ba.clone()
             assert(ba2.at(3))
+        },
+        ()=>{
+            assert(getBitSize() === 32)
         },
         ()=>{
             enum EVENT_CLEAR {
