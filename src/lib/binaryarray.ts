@@ -148,7 +148,7 @@ export class BinaryArray{
      */
     static loadFromHexString(maxnum : number, hexstr : string) : BinaryArray{
         const ba = new BinaryArray(maxnum)
-        const s = 8 // bitsize
+        const s = 8 // uint32 hexstring size (4 * 2)
         let b   = hexstr.length - s
         let e   = hexstr.length - 0
         const n = hexstr.length / s
